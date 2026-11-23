@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*-backup-*.db
+.neon
+node_modules/

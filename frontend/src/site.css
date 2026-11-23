@@ -1,0 +1,68 @@
+.optional-note {
+  color: var(--amutham-cream-muted);
+  font-size: .85em;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.dietary-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .45rem 1.25rem;
+  margin: 1.25rem 0;
+  color: var(--amutham-ink-soft);
+  font-size: .82rem;
+}
+
+.dietary-legend strong {
+  color: var(--amutham-gold-deep);
+  letter-spacing: .04em;
+}
+
+.section--dark .dietary-legend {
+  color: var(--amutham-cream-muted);
+}
+
+.section--dark .dietary-legend strong {
+  color: var(--amutham-gold-soft);
+}
+
+.form-failure {
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(217, 138, 138, .5);
+  border-radius: var(--amutham-radius);
+  background: rgba(217, 138, 138, .12);
+  color: #f0a3a3;
+  font-weight: 600;
+}
+
+.quote-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.navbar-collapse.show {
+  display: block;
+}
+
+body:has(.lightbox.open) {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

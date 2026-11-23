@@ -1,0 +1,61 @@
+services:
+  api:
+    build: ./backend
+    environment:
+      FEAST_HOST: 0.0.0.0
+      FEAST_PORT: 8000
+      FEAST_DB_PATH: /data/quotes.db
+      DATABASE_URL: ${DATABASE_URL:-}
+      FEAST_TRUSTED_PROXIES: 172.30.0.2
+      FEAST_SMTP_HOST: ${FEAST_SMTP_HOST:-}
+      FEAST_SMTP_PORT: ${FEAST_SMTP_PORT:-587}
+      FEAST_SMTP_USER: ${FEAST_SMTP_USER:-}
+      FEAST_SMTP_PASSWORD: ${FEAST_SMTP_PASSWORD:-}
+      FEAST_SMTP_STARTTLS: ${FEAST_SMTP_STARTTLS:-true}
+      FEAST_SMTP_SSL: ${FEAST_SMTP_SSL:-false}
+      FEAST_NOTIFICATION_FROM: ${FEAST_NOTIFICATION_FROM:-}
+      FEAST_NOTIFICATION_TO: ${FEAST_NOTIFICATION_TO:-}
+    volumes:
+      - feast-data:/data
+    networks:
+      app:
+        ipv4_address: 172.30.0.3
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  web:
+    build: ./frontend
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN to a DNS name pointing at this server}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    networks:
+      app:
+        ipv4_address: 172.30.0.2
+    depends_on:
+      - api
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  feast-data:
+  caddy-data:
+  caddy-config:
+
+networks:
+  app:
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24

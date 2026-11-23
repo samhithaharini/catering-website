@@ -1,0 +1,1 @@
+"""Amutham backend application package."""
